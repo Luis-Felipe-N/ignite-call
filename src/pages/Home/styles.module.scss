@@ -1,0 +1,32 @@
+.home {
+    max-width: calc(100vw - (100vw - 1160px) / 2);
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 5rem;
+
+    &__hero {        
+        max-width: 480px;
+        padding: 0 2.5rem;
+
+        > h1 {
+            font-size: 4rem;
+            line-height: 125%;
+        }
+
+        > p {
+            line-height: 125%;
+            font-size: 1.25rem;
+            color: var(--gray-200);
+        }
+    }
+
+    &__preview {
+        overflow: hidden;
+        @media (max-width: 600px) {
+            display: none;
+        }
+    }
+}

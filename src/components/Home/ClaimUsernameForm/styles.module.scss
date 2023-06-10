@@ -1,0 +1,50 @@
+.claim {
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    border: 2px solid var(--gray-700);
+    background-color: var(--gray-800);
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+    }
+
+    &__inputbox {
+        background-color: var(--gray-900);
+        border-radius: var(--border-radius);
+        transition: .2s;
+        display: flex;
+        align-items: center;
+        color: var(--gray-300);
+        padding: 0 1rem;
+        max-width: 100%;
+        min-height: 38px;
+        font-size: .875rem;
+
+        &:focus-within {
+            box-shadow: 0 0 0 2px var(--primary-500);
+        }
+
+        &_input {
+            background-color: initial;
+            border: 0;
+            outline: 0;
+            color: var(--gray-100);
+            width: 100%;
+        }
+    }
+}
+
+.claimerros {
+    margin-top: .5rem;
+    font-size: .875rem;
+    color: var(--gray-300);
+
+    span {
+        color: var(--red-200);
+    }
+}
