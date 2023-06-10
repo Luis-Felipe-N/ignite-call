@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import styles from './Home/styles.module.scss'
+import styles from './home/styles.module.scss'
 import previewImage from '../assets/app-preview.png'
 import { ClaimUsernameForm } from '@/components/Home/ClaimUsernameForm'
 

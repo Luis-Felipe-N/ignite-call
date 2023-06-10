@@ -1,10 +1,12 @@
 import { Button } from '@/components/Button'
 import { ArrowRight } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import styles from './styles.module.scss'
+import { Input } from '@/components/Input'
+import { useRouter } from 'next/router'
 
 const ClaimUsernameFormSchema = z.object({
   username: z
@@ -19,17 +21,22 @@ const ClaimUsernameFormSchema = z.object({
 type ClaimUsernameFormData = z.infer<typeof ClaimUsernameFormSchema>
 
 export function ClaimUsernameForm() {
+  const claimUsernameForm = useForm<ClaimUsernameFormData>({
+    resolver: zodResolver(ClaimUsernameFormSchema),
+  })
+
+  const router = useRouter()
+
+  async function handleClaimUsername(data: ClaimUsernameFormData) {
+    const { username } = data
+    await router.push(`/register?username=${username}`)
+  }
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ClaimUsernameFormData>({
-    resolver: zodResolver(ClaimUsernameFormSchema),
-  })
-
-  function handleClaimUsername(data: ClaimUsernameFormData) {
-    console.log(data)
-  }
+  } = claimUsernameForm
 
   return (
     <>
@@ -37,16 +44,17 @@ export function ClaimUsernameForm() {
         onSubmit={handleSubmit(handleClaimUsername)}
         className={styles.claim}
       >
-        <div className={styles.claim__inputbox}>
-          <span className={styles.claim__inputbox_prefix}>ignite.com/</span>
-          <input
-            className={styles.claim__inputbox_input}
-            placeholder="seu-username"
-            type="text"
-            {...register('username')}
-          />
-        </div>
-        <Button>
+        <FormProvider {...claimUsernameForm}>
+          <Input sizeInput="sm" prefix="ignite.com/">
+            <input
+              placeholder="seu-username"
+              type="text"
+              {...register('username')}
+            />
+          </Input>
+        </FormProvider>
+
+        <Button size="sm">
           Reservar <ArrowRight size={18} />
         </Button>
       </form>

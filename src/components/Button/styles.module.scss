@@ -4,7 +4,6 @@
     transition: .2s filter;
     min-width: 120px;
     padding: 0 1rem;
-    height: 38px;
     font-size: .875rem;
 
     background-color: var(--primary-500);
@@ -20,4 +19,16 @@
     &:hover {
         filter: brightness(.85);
     }
+
+    &:disabled {
+        background-color: var(--gray-200);
+    }
+}
+
+.button_sm {
+    height: 38px;
+}
+
+.button_md {
+    height: 46px;
 }
