@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import styles from './styles.module.scss'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { api } from '@/lib/axios'
 
 const registerFormSchema = z.object({
   username: z
@@ -37,8 +38,17 @@ export default function Register() {
 
   const router = useRouter()
 
-  function handleRegister(data: RegisterFormData) {
-    console.log(data)
+  async function handleRegister(data: RegisterFormData) {
+    try {
+      await api.post(`/users`, {
+        username: data.username,
+        name: data.name,
+      })
+
+      await router.push('/register/connect-calendar')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -46,7 +56,7 @@ export default function Register() {
       const username = router.query.username
       setValue('username', String(username))
     }
-  }, [router.query?.username])
+  }, [router.query?.username, setValue])
 
   return (
     <main className={styles.register}>

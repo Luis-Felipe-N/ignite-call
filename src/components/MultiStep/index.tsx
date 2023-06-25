@@ -17,7 +17,7 @@ export function MultiStep({ currentStep = 1, size }: IMultiStep) {
       </span>
       <ul>
         {createRangeArrayByNumber(size).map((item) => {
-          if (item + 1 === currentStep) {
+          if (item + 1 <= currentStep) {
             return <li key={item} className={styles.active}></li>
           } else {
             return <li key={item}></li>
