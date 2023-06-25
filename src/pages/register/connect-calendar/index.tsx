@@ -1,12 +1,17 @@
 import { Button } from '@/components/Button'
 import { MultiStep } from '@/components/MultiStep'
-import { ArrowRight } from 'phosphor-react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { ArrowRight, Check } from 'phosphor-react'
 
 import stylesRegister from '../styles.module.scss'
 import styles from './styles.module.scss'
 
 export default function Register() {
-  // async function handleRegister() {}
+  const session = useSession()
+  const router = useRouter()
+
+  const hasAuthError = !!router.query.error
 
   return (
     <main className={stylesRegister.register}>
@@ -23,11 +28,31 @@ export default function Register() {
         <div className={styles.connectcalendar__connect}>
           <strong>Google Agenda</strong>
 
-          <Button>
-            Conectar <ArrowRight />
-          </Button>
+          {!hasAuthError && session.status === 'authenticated' ? (
+            <Button
+              size="sm"
+              onClick={() => signIn('google')}
+              disabled={!hasAuthError && session.status === 'authenticated'}
+            >
+              Conectado <Check />
+            </Button>
+          ) : (
+            <Button
+              size="sm"
+              onClick={() => signIn('google')}
+              disabled={!hasAuthError && session.status === 'authenticated'}
+            >
+              Conectar <ArrowRight />
+            </Button>
+          )}
         </div>
-        <Button disabled>
+        {hasAuthError && (
+          <p className={styles.connectcalendar__msgerror}>
+            Falha ao conectar-se ao Google. Por favor, verifique se você
+            concedeu permissão ao Google Calendar.
+          </p>
+        )}
+        <Button disabled={hasAuthError || session.status !== 'authenticated'}>
           Proximo passo <ArrowRight />
         </Button>
       </div>
