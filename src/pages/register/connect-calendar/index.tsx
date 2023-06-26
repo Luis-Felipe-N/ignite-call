@@ -7,11 +7,12 @@ import { ArrowRight, Check } from 'phosphor-react'
 import stylesRegister from '../styles.module.scss'
 import styles from './styles.module.scss'
 
-export default function Register() {
+export default function ConnectCalendar() {
   const session = useSession()
   const router = useRouter()
 
   const hasAuthError = !!router.query.error
+  const isSigned = session.status === 'authenticated'
 
   return (
     <main className={stylesRegister.register}>
@@ -28,11 +29,11 @@ export default function Register() {
         <div className={styles.connectcalendar__connect}>
           <strong>Google Agenda</strong>
 
-          {!hasAuthError && session.status === 'authenticated' ? (
+          {!hasAuthError && isSigned ? (
             <Button
               size="sm"
               onClick={() => signIn('google')}
-              disabled={!hasAuthError && session.status === 'authenticated'}
+              disabled={!hasAuthError && isSigned}
             >
               Conectado <Check />
             </Button>
@@ -40,7 +41,7 @@ export default function Register() {
             <Button
               size="sm"
               onClick={() => signIn('google')}
-              disabled={!hasAuthError && session.status === 'authenticated'}
+              disabled={!hasAuthError && isSigned}
             >
               Conectar <ArrowRight />
             </Button>
@@ -52,7 +53,7 @@ export default function Register() {
             concedeu permissão ao Google Calendar.
           </p>
         )}
-        <Button disabled={hasAuthError || session.status !== 'authenticated'}>
+        <Button disabled={hasAuthError || !isSigned}>
           Proximo passo <ArrowRight />
         </Button>
       </div>
