@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id             String @id @default(uuid())
-  username       String @unique
+  id             String    @id @default(uuid())
+  username       String    @unique
   name           String
   email          String?   @unique
   email_verified DateTime?
@@ -19,6 +19,7 @@ model User {
 
   accounts      Account[]
   sessions      Session[]
+  timeIntervals UserTimeInterval[]
 
   @@map("users")
 }
@@ -29,12 +30,12 @@ model Account {
   type               String
   provider           String
   provider_accountId String
-  refresh_token      String?  
-  access_token       String?  
+  refresh_token      String?
+  access_token       String?
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?  
+  id_token           String?
   session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -44,12 +45,23 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id            String   @id @default(cuid())
   session_token String   @unique
   user_id       String
-  expires      DateTime
-  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  expires       DateTime
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
 
+model UserTimeInterval {
+  id                    String @id @default(uuid())
+  week_day              Int
+  time_start_in_minutes Int
+  time_end_in_minutes   Int
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  @@map("user_time_intervlas")
+}

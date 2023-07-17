@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import styles from './styles.module.scss'
-import { Input } from '@/components/Input'
+import { Input } from '@/components/Form/Input'
 import { useRouter } from 'next/router'
 
 const ClaimUsernameFormSchema = z.object({

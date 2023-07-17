@@ -1,5 +1,5 @@
 import { Button } from '@/components/Button'
-import { Input } from '@/components/Input'
+import { Input } from '@/components/Form/Input'
 import { MultiStep } from '@/components/MultiStep'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'

@@ -1,0 +1,19 @@
+.checkBox {
+  height: 1.5rem;
+  width: 1.5rem;
+
+  background-color: var(--gray-900);
+  border: 0;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 0;
+
+  &[data-state="checked"] {
+    background-color: var(--primary-500);
+    color: var(--gray-50);
+  }
+}
